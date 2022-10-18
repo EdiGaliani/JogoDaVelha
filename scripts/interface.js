@@ -1,15 +1,22 @@
 
-document.addEventListener('DOMContentLoaded', () => {
+/* document.addEventListener('DOMContentLoaded', () => {
     let squares = document.querySelectorAll(".square");
         squares.forEach((square, index) => {
-           /*  if(index % 2 === 0) {
+            if(index % 2 === 0) {
                 square.style.backgroundColor = "black";
             }else {
                 square.style.backgroundColor = "white";
-            } */
+            }
             let isPar = index % 2 === 0;
             square.style.backgroundColor = (isPar) ? "black" : "white";
             square.addEventListener('click', handleClick);
+    })
+}) */
+
+document.addEventListener('DOMContentLoaded', () => {
+    let squares = document.querySelectorAll(".square");
+    squares.forEach((square) => {
+        square.addEventListener('click', handleClick);
     })
 })
 
