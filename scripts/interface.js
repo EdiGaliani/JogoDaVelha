@@ -1,18 +1,4 @@
 
-/* document.addEventListener('DOMContentLoaded', () => {
-    let squares = document.querySelectorAll(".square");
-        squares.forEach((square, index) => {
-            if(index % 2 === 0) {
-                square.style.backgroundColor = "black";
-            }else {
-                square.style.backgroundColor = "white";
-            }
-            let isPar = index % 2 === 0;
-            square.style.backgroundColor = (isPar) ? "black" : "white";
-            square.addEventListener('click', handleClick);
-    })
-}) */
-
 document.addEventListener('DOMContentLoaded', () => {
     let squares = document.querySelectorAll(".square");
     squares.forEach((square) => {
@@ -23,18 +9,42 @@ document.addEventListener('DOMContentLoaded', () => {
 function handleClick(event) {
     let squareClicked = event.target;
     let position = squareClicked.id;
-    handleMove(position);
-    updateSquares();
+    if(handleMove(position)) {
+        setTimeout(() => {
+            let message = document.querySelector("#msg");
+            message.insertAdjacentHTML('beforeend',"O Jogo Acabou - O Vencedor foi " + playerTime + "</br>");
+             
+            // alert("O Jogo Acabou - O Vencedor foi " + playerTime);
+        }, 10);
+    }
+    updateSquares(position);
 }
 
-function updateSquares() {
+function updateSquares(position) {
+    let square = document.getElementById(position.toString());
+    let symbol = board[position];
+    square.innerHTML = `<div class='${symbol}'></div>`;
+}
+
+function resetBoard() { 
+     resetState();
+     clearSymbols();   
+        
+}
+
+function clearSymbols() {
     let squares = document.querySelectorAll(".square");
     squares.forEach((square) => {
-        let position = square.id;
-        let symbol = board[position];
-
-        if(symbol != "") {
-            square.innerHTML = `<div class='${symbol}'></div>`;
-        }
-    })
+        square.innerHTML = '';
+    }) 
 }
+
+
+function resetState() {
+    board = ["","","","","","","","",""];
+    playerTime = 0;
+    gameOver = false;
+}
+
+let clearBoards = document.getElementById("reset");
+clearBoards.addEventListener('click', resetBoard);
